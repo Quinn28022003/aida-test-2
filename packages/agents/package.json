@@ -1,0 +1,24 @@
+{
+  "name": "@aida/agents",
+  "version": "0.0.0",
+  "private": true,
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "lint": "eslint . --max-warnings=0",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "vitest run --passWithNoTests --config vitest.config.ts",
+    "test:coverage": "vitest run --passWithNoTests --config vitest.config.ts --coverage"
+  },
+  "dependencies": {
+    "@aida/db": "workspace:^",
+    "@aida/contracts": "workspace:^",
+    "@aws-sdk/client-bedrock-runtime": "^3.1048.0",
+    "@supabase/supabase-js": "^2.99.0"
+  },
+  "devDependencies": {
+    "@types/node": "^25.8.0"
+  }
+}

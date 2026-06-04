@@ -1,0 +1,64 @@
+name: Database Dry Run
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    branches:
+      - '**'
+  push:
+    branches:
+      - develop
+      - staging
+
+permissions:
+  contents: read
+
+jobs:
+  database-dry-run:
+    name: Migrations + RLS on ephemeral Postgres
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: pgvector/pgvector:pg16
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: test_db
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U postgres -d test_db"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    env:
+      DATABASE_URL: postgresql://postgres:postgres@localhost:5432/test_db?sslmode=disable
+      RLS_TEST_DATABASE_URL: postgresql://rls_ci:rls_ci@localhost:5432/test_db?sslmode=disable
+      NEXT_PUBLIC_SUPABASE_URL: postgresql://postgres:postgres@localhost:5432/test_db?sslmode=disable
+      SUPABASE_SERVICE_ROLE_KEY: ci-service-role-key
+
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Setup Node and pnpm
+        uses: ./.github/actions/setup-node-pnpm
+
+      - name: Install PostgreSQL client
+        run: sudo apt-get update && sudo apt-get install -y postgresql-client
+
+      - name: Apply Supabase dependency stubs (auth, storage)
+        run: psql "$DATABASE_URL" -v ON_ERROR_STOP=1 -f supabase/ci/mock_supabase_minimal.sql
+
+      - name: Run migrations on temporary Postgres
+        run: pnpm db migrate up --db-url "$DATABASE_URL" --yes --debug
+
+      - name: Apply RLS policies via ephemeral Supabase migration
+        run: RLS_SYNC_MODE=db-url pnpm rls sync
+
+      - name: Validate generated database types from temporary Postgres
+        run: pnpm db validate --db-url "$DATABASE_URL"
+
+      - name: RLS integration tests (fixtures + cleanup in runner)
+        run: pnpm rls test

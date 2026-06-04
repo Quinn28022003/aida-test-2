@@ -1,0 +1,16 @@
+export const API_ERROR_CODES = [
+    'request.invalid',
+    'auth.unauthenticated',
+    'auth.forbidden',
+    'profile.not_found',
+    'org.not_found',
+    'org.member.not_found',
+    'project.not_found',
+    'project.member.not_found',
+    'job.not_found',
+    'agent.not_found',
+    'agent.member.not_found',
+    'agent.member.already_exists',
+    'agent.invitation.not_found',
+    'internal.error',
+] as const;

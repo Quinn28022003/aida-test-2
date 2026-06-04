@@ -1,0 +1,6 @@
+@import 'tailwindcss';
+@import '@aida/ui/styles/aida-theme.css';
+
+/* Scan this app and shared UI components for Tailwind classes */
+@source '../**/*.{ts,tsx}';
+@source '../../../../packages/ui/src/**/*.{ts,tsx}';

@@ -1,0 +1,28 @@
+{
+  "name": "@aida/observability",
+  "version": "0.0.0",
+  "private": true,
+  "exports": {
+    "./browser": "./src/browser.ts",
+    "./server": "./src/server.ts",
+    "./shared": "./src/shared.ts"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "lint": "eslint . --max-warnings=0",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "vitest run --passWithNoTests --config vitest.config.ts",
+    "test:coverage": "vitest run --passWithNoTests --config vitest.config.ts --coverage"
+  },
+  "dependencies": {
+    "@aida/contracts": "workspace:^",
+    "@aida/db": "workspace:^",
+    "hono": "^4.12.19",
+    "pino": "^10.3.1",
+    "posthog-node": "^5.34.3",
+    "yoctocolors-cjs": "2.1.3"
+  },
+  "devDependencies": {
+    "@types/node": "^25.8.0"
+  }
+}

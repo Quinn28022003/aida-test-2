@@ -1,0 +1,3 @@
+pnpm generate
+pnpm lint
+pnpm typecheck

@@ -1,0 +1,92 @@
+name: CI
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    branches:
+      - '**'
+  push:
+    branches:
+      - main
+      - staging
+      - develop
+
+permissions:
+  contents: read
+
+env:
+  NEXT_PUBLIC_SUPABASE_URL: https://mock.supabase.co
+  NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: mock-publishable-key
+
+  NEXT_PUBLIC_CHAT_DOMAIN: http://localhost:3000
+  NEXT_PUBLIC_ALLOWED_RETURN_TO_ORIGINS: http://localhost:3000
+
+  NEXT_PUBLIC_IDENTITY_DOMAIN: http://localhost:3001
+  NEXT_PUBLIC_VAULT_DOMAIN: http://localhost:3002
+
+  NEXT_PUBLIC_API_GATEWAY_URL: http://localhost:4000
+
+  NEXT_PUBLIC_POSTHOG_KEY: phc_mock_key
+  NEXT_PUBLIC_POSTHOG_HOST: https://app.posthog.com
+
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Setup Node and pnpm
+        uses: ./.github/actions/setup-node-pnpm
+
+      - name: Lint
+        run: pnpm lint
+
+  typecheck:
+    name: Check types
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Setup Node and pnpm
+        uses: ./.github/actions/setup-node-pnpm
+
+      - name: Check types
+        run: pnpm typecheck
+
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Setup Node and pnpm
+        uses: ./.github/actions/setup-node-pnpm
+
+      - name: Run tests
+        run: pnpm test coverage
+
+      - name: Merge coverage reports
+        run: node scripts/merge-coverage.mjs
+
+      - name: Report Coverage
+        if: github.event_name == 'pull_request' && always()
+        uses: davelosert/vitest-coverage-report-action@v2
+        with:
+          json-summary-path: coverage/coverage-summary.json
+          json-final-path: coverage/coverage-final.json
+
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Setup Node and pnpm
+        uses: ./.github/actions/setup-node-pnpm
+
+      - name: Build
+        run: pnpm build

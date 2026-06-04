@@ -1,0 +1,38 @@
+{
+  "name": "@aida/api-gateway",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "build": "tsc -p tsconfig.json",
+    "start": "node dist/index.js",
+    "lint": "eslint . --max-warnings=0",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "vitest run --passWithNoTests --config vitest.config.ts",
+    "test:coverage": "vitest run --passWithNoTests --config vitest.config.ts --coverage"
+  },
+  "dependencies": {
+    "@aida/agents": "workspace:^",
+    "@aida/config": "workspace:^",
+    "@aida/contracts": "workspace:^",
+    "@aida/db": "workspace:^",
+    "@aida/api-client": "workspace:^",
+    "@aida/observability": "workspace:^",
+    "@aida/organizations": "workspace:^",
+    "@aida/profiles": "workspace:^",
+    "@aida/projects": "workspace:^",
+    "@hono/node-server": "^2.0.2",
+    "@hono/swagger-ui": "^0.5.3",
+    "@supabase/server": "^1.0.0",
+    "@supabase/supabase-js": "^2.99.0",
+    "dotenv": "^17.4.2",
+    "hono": "^4.12.19",
+    "jose": "^6.2.3",
+    "zod": "^4.4.3"
+  },
+  "devDependencies": {
+    "@types/node": "^25.8.0",
+    "tsx": "^4.22.0"
+  }
+}

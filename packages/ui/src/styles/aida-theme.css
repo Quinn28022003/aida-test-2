@@ -1,0 +1,85 @@
+@theme {
+  /* Aida brand tokens */
+  --color-aida-bg: #f8fafc;
+  --color-aida-card: #ffffff;
+  --color-aida-ink: #1e293b;
+  --color-aida-muted: #64748b;
+  --color-aida-accent: #3b82f6;
+  --color-aida-accent-hover: #2563eb;
+  --color-aida-accent-soft: #eff6ff;
+  --color-aida-border: #e2e8f0;
+  --color-aida-placeholder: #64748b;
+  --color-aida-error: #ef4444;
+  --color-aida-warning: #f59e0b;
+  --color-aida-error-soft: #eff6ff;
+  --color-aida-success: #22c55e;
+  --color-aida-success-soft: #eff6ff;
+  --color-aida-logo-bg: #eff6ff;
+  --color-aida-logo-ink: #3b82f6;
+
+  /* Semantic tokens for shadcn-style components */
+  --color-background: var(--color-aida-card);
+  --color-foreground: var(--color-aida-ink);
+  --color-card: var(--color-aida-card);
+  --color-card-foreground: var(--color-aida-ink);
+  --color-popover: var(--color-aida-card);
+  --color-popover-foreground: var(--color-aida-ink);
+  --color-primary: var(--color-aida-accent);
+  --color-primary-hover: var(--color-aida-accent-hover);
+  --color-primary-foreground: #ffffff;
+  --color-secondary: var(--color-aida-accent-soft);
+  --color-secondary-foreground: #334155;
+  --color-muted: #f8fafc;
+  --color-muted-foreground: var(--color-aida-muted);
+  --color-accent: var(--color-aida-accent-soft);
+  --color-accent-foreground: var(--color-aida-ink);
+  --color-destructive: var(--color-aida-error);
+  --color-destructive-foreground: #ffffff;
+  --color-success: var(--color-aida-success);
+  --color-warning: var(--color-aida-warning);
+  --color-success-foreground: #ffffff;
+  --color-border: var(--color-aida-border);
+  --color-input: var(--color-aida-border);
+  --color-ring: var(--color-aida-accent);
+
+  --font-sans: Inter, system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  --radius-sm: calc(0.625rem - 4px);
+  --radius-md: 0.625rem;
+  --radius-lg: calc(0.625rem + 4px);
+  --radius-xl: calc(0.625rem + 8px);
+}
+
+@layer base {
+  html {
+    color-scheme: light;
+  }
+
+  * {
+    @apply border-border;
+    box-sizing: border-box;
+  }
+
+  body {
+    @apply bg-background font-sans text-foreground antialiased;
+    margin: 0;
+  }
+}
+
+@keyframes dotAppear {
+  0% {
+    opacity: 0;
+  }
+
+  33.33% {
+    opacity: 1;
+  }
+
+  66.66% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}

@@ -1,0 +1,51 @@
+{
+  "name": "aida",
+  "private": true,
+  "scripts": {
+    "dev": "turbo run dev",
+    "build": "turbo run build",
+    "lint": "turbo run lint",
+    "typecheck": "turbo run typecheck",
+    "test": "tsx tools/cli.ts test",
+    "api": "tsx tools/cli.ts api",
+    "db": "tsx tools/cli.ts db",
+    "generate": "tsx tools/cli.ts generate",
+    "rls": "tsx tools/cli.ts rls",
+    "help": "tsx tools/cli.ts help",
+    "format": "prettier --write \"**/*.{ts,tsx,js,jsx,md,json,yml,yaml}\"",
+    "prepare": "husky"
+  },
+  "devDependencies": {
+    "@hey-api/openapi-ts": "^0.85.2",
+    "@rcmade/hono-docs": "^1.0.32",
+    "@eslint/js": "^10.0.1",
+    "@next/eslint-plugin-next": "^16.2.6",
+    "@types/node": "^25.9.0",
+    "@typescript-eslint/parser": "^8.59.4",
+    "@vitest/coverage-v8": "^4.1.6",
+    "commander": "^14.0.3",
+    "dotenv": "^17.4.2",
+    "dotenv-cli": "^11.0.0",
+    "eslint": "^10.4.0",
+    "eslint-plugin-react": "^7.37.5",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "globals": "^17.6.0",
+    "husky": "^9.1.7",
+    "jsdom": "^29.1.1",
+    "prettier": "^3.8.3",
+    "supabase": "^2.100.0",
+    "ts-to-zod": "^5.1.0",
+    "tsup": "^8.5.1",
+    "tsx": "^4.21.0",
+    "turbo": "^2.9.14",
+    "typescript": "6.0.3",
+    "typescript-eslint": "^8.59.4",
+    "vite": "^8.0.13",
+    "vitest": "^4.1.6",
+    "zod": "^4.4.3"
+  },
+  "packageManager": "pnpm@11.0.0",
+  "engines": {
+    "node": ">=24"
+  }
+}

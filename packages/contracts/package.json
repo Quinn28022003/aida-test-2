@@ -1,0 +1,20 @@
+{
+  "name": "@aida/contracts",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "dependencies": {
+    "@aida/db": "workspace:^",
+    "zod": "^4.4.3"
+  },
+  "scripts": {
+    "build": "tsup",
+    "lint": "eslint . --max-warnings=0",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "vitest run --passWithNoTests --config vitest.config.ts",
+    "test:coverage": "vitest run --passWithNoTests --config vitest.config.ts --coverage"
+  }
+}
